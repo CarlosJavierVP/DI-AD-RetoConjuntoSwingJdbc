@@ -19,7 +19,7 @@ public class Loggin extends JFrame {
         setContentPane(ventana);
         setTitle("loggin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,400);
+        setSize(300,500);
         setLocationRelativeTo(null);
         setResizable(false);
 
