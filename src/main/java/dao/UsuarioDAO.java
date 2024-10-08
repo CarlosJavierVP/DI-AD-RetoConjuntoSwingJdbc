@@ -2,6 +2,7 @@ package dao;
 
 import models.Usuario;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +102,30 @@ public class UsuarioDAO implements DAO<Usuario>{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Usuario DataCon (JTextField user, JPasswordField pass) {
+        Usuario usuario = null;
+        try(PreparedStatement ps = con.prepareStatement("Select nombre_usuario, password from usuario where nombre_usuario = '"+user+"' && password = '"+pass+"'")){
+            ps.setObject(1, user); // ps.setString(1, String.valueOf(user));
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNombre_usuario(rs.getString("nombre_usuario"));
+                usuario.setPassword(rs.getString("password"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return usuario;
+    }
+
+    @Override
+    public List<Usuario> findUser(Usuario u) {
+        return null;
     }
 }

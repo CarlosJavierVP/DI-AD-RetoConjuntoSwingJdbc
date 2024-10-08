@@ -3,6 +3,7 @@ package dao;
 import models.Pelicula;
 import models.Usuario;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,4 +115,15 @@ public class PeliculaDAO implements DAO<Pelicula>{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Object DataCon(JTextField u, JPasswordField p) {
+        return null;
+    }
+
+    @Override
+    public List<Pelicula> findUser(Usuario u) {
+        return null;
+    }
+
 }

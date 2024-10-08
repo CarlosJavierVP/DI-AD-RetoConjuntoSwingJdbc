@@ -1,5 +1,10 @@
 package views;
 
+import dao.CopiaDAO;
+import dao.UsuarioDAO;
+import models.Copia;
+import models.Usuario;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +19,8 @@ public class Loggin extends JFrame {
     private JPanel button;
     private JPanel Imagen;
 
+    UsuarioDAO usuarios = new UsuarioDAO();
+    CopiaDAO copias = new CopiaDAO();
 
     public Loggin() {
         setContentPane(ventana);
@@ -27,8 +34,13 @@ public class Loggin extends JFrame {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Usuario userConectado = usuarios.DataCon(user,pass);
+                //método DAO -> llamar a copia del usuario
+                Copia misCopias = (Copia) copias.findUser(userConectado);
 
-
+                Principal miLista = new Principal();
+                miLista.setVisible(true);
+                dispose();
 
             }
         });

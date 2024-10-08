@@ -3,6 +3,7 @@ package dao;
 import models.Copia;
 import models.Usuario;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,4 +107,38 @@ public class CopiaDAO implements DAO<Copia>{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<Copia> findUser(Usuario u) {
+        var miLista = new ArrayList<Copia>();
+
+        try(PreparedStatement ps = con.prepareStatement("select * from copia where id_usuario = '"+u.getId()+"'")){
+            ps.setInt(4,u.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Copia copy = new Copia();
+                copy.setId(rs.getInt("id"));
+                copy.setEstado(rs.getString("estado"));
+                copy.setSoporte(rs.getString("soporte"));
+                copy.setId_pelicula(rs.getInt("id_pelicula"));
+                copy.setId_usuario(rs.getInt("id_usuario"));
+                miLista.add(copy);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return miLista;
+    }
+
+    @Override
+    public Object DataCon(JTextField u, JPasswordField p) {
+        return null;
+    }
+
+
+
+
 }
