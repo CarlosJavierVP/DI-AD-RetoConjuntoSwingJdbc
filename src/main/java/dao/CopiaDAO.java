@@ -115,7 +115,7 @@ public class CopiaDAO implements DAO<Copia>{
         var miLista = new ArrayList<Copia>();
 
         try(PreparedStatement ps = con.prepareStatement("select * from copia where id_usuario = '"+u.getId()+"'")){
-            ps.setInt(4,u.getId());
+            ps.setInt(1,u.getId());
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){

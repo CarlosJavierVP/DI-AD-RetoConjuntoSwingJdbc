@@ -1,11 +1,10 @@
-import java.lang.module.Configuration;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JdbcUtils {
+public class JdbcUtility {
 
-    private static Connection con;
+    private static final Connection con;
 
     static{
         String url="jdbc:mysql://localhost:3306/peliculas";

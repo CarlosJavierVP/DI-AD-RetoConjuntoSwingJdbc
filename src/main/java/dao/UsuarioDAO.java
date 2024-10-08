@@ -5,6 +5,7 @@ import models.Usuario;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UsuarioDAO implements DAO<Usuario>{
@@ -13,6 +14,7 @@ public class UsuarioDAO implements DAO<Usuario>{
     public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password)";
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
+    public static final String SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO = "Select nombre_usuario, password from usuario where nombre_usuario =? && password =?";
     private static Connection con = null;
     public UsuarioDAO(Connection conect){con = conect;}
 
@@ -112,8 +114,10 @@ public class UsuarioDAO implements DAO<Usuario>{
     @Override
     public Usuario DataCon (String user, char[] pass) {
         Usuario usuario = null;
-        try(Statement st = con.createStatement()){
-            ResultSet rs = st.executeQuery("Select nombre_usuario, password from usuario where nombre_usuario = '"+user+"' && password = '"+pass+"'");
+        try(PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO)){
+            ps.setString(1,user);
+            ps.setString(2, Arrays.toString(pass));
+            ResultSet rs = ps.executeQuery();
 
             if(rs.next()){
                 usuario = new Usuario();

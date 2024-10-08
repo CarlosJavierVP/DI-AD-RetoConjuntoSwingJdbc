@@ -1,5 +1,6 @@
 package views;
 
+import com.mysql.cj.jdbc.JdbcConnection;
 import dao.CopiaDAO;
 import dao.UsuarioDAO;
 import models.Copia;
@@ -8,6 +9,8 @@ import models.Usuario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+
 
 public class Loggin extends JFrame {
     private JPanel ventana;
@@ -19,8 +22,9 @@ public class Loggin extends JFrame {
     private JPanel button;
     private JPanel Imagen;
 
-    UsuarioDAO usuarios = new UsuarioDAO();
-    CopiaDAO copias = new CopiaDAO();
+    Connection c = getCon();
+    UsuarioDAO usuarios = new UsuarioDAO(c);
+    CopiaDAO copias = new CopiaDAO(c);
 
     public Loggin() {
         setContentPane(ventana);
