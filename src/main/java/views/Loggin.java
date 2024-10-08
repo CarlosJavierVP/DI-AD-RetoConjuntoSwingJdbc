@@ -34,7 +34,7 @@ public class Loggin extends JFrame {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Usuario userConectado = usuarios.DataCon(user,pass);
+                Usuario userConectado = usuarios.DataCon(user.getText(),pass.getPassword());
                 //método DAO -> llamar a copia del usuario
                 Copia misCopias = (Copia) copias.findUser(userConectado);
 

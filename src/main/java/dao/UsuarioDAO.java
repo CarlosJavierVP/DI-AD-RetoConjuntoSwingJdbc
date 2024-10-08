@@ -14,6 +14,7 @@ public class UsuarioDAO implements DAO<Usuario>{
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
     private static Connection con = null;
+    public UsuarioDAO(Connection conect){con = conect;}
 
 
 
@@ -104,12 +105,16 @@ public class UsuarioDAO implements DAO<Usuario>{
         }
     }
 
+    /*
+    JTextField, JPassword
+
+     */
     @Override
-    public Usuario DataCon (JTextField user, JPasswordField pass) {
+    public Usuario DataCon (String user, char[] pass) {
         Usuario usuario = null;
-        try(PreparedStatement ps = con.prepareStatement("Select nombre_usuario, password from usuario where nombre_usuario = '"+user+"' && password = '"+pass+"'")){
-            ps.setObject(1, user); // ps.setString(1, String.valueOf(user));
-            ResultSet rs = ps.executeQuery();
+        try(Statement st = con.createStatement()){
+            ResultSet rs = st.executeQuery("Select nombre_usuario, password from usuario where nombre_usuario = '"+user+"' && password = '"+pass+"'");
+
             if(rs.next()){
                 usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));

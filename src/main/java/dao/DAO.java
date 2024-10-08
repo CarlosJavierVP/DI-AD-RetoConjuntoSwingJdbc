@@ -13,6 +13,6 @@ public interface DAO <T>{
     public void save(T t);
     public void update (T t);
     public void delete (T t);
-    public Object DataCon (JTextField u, JPasswordField p);
+    public Object DataCon (String u, char[] p);
     public List<T> findUser(Usuario u);
 }

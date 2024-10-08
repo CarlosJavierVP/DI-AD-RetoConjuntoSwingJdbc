@@ -17,6 +17,8 @@ public class CopiaDAO implements DAO<Copia>{
 
     private static Connection con = null;
 
+    public CopiaDAO (Connection conect){ con = conect;}
+
 
 
     @Override
@@ -134,7 +136,7 @@ public class CopiaDAO implements DAO<Copia>{
     }
 
     @Override
-    public Object DataCon(JTextField u, JPasswordField p) {
+    public Object DataCon(String u, char[] p) {
         return null;
     }
 

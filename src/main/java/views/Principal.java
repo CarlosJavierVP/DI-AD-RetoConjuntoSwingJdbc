@@ -36,6 +36,8 @@ public class Principal extends JFrame{
         setResizable(false);
         pack();
 
+        listadoPelis.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 
         btnVolver.addActionListener(new ActionListener() {
             @Override

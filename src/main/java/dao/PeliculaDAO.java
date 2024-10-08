@@ -16,6 +16,7 @@ public class PeliculaDAO implements DAO<Pelicula>{
     public static final String DELETE_FROM = "delete from pelicula where id=?";
     private static Connection con = null;
 
+    public PeliculaDAO(Connection conect){ con = conect; }
 
     @Override
     public List<Pelicula> findAll() {
@@ -117,7 +118,7 @@ public class PeliculaDAO implements DAO<Pelicula>{
     }
 
     @Override
-    public Object DataCon(JTextField u, JPasswordField p) {
+    public Object DataCon(String u, char[] p) {
         return null;
     }
 
