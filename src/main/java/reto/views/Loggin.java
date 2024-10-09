@@ -9,6 +9,7 @@ import reto.models.Usuario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 
 public class Loggin extends JFrame {
@@ -34,9 +35,12 @@ public class Loggin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UsuarioDAO userConectado = new UsuarioDAO(JdbcUtils.con);
-                Usuario usuario = userConectado.DataCon(user.getText(), pass.getPassword());
-                CopiaDAO misCopias = new CopiaDAO(JdbcUtils.con);
-                Copia miCopia = (Copia) misCopias.findUser(usuario);
+                //Usuario usuario = userConectado.DataCon(user.getText(), pass.getPassword());
+                //CopiaDAO misCopias = new CopiaDAO(JdbcUtils.con);
+                //Copia miCopia = (Copia) misCopias.findUser(usuario);
+
+
+                List<Usuario> u = userConectado.findAll();
 
 
                 Principal miLista = new Principal();
