@@ -1,4 +1,4 @@
-package models;
+package reto.models;
 
 import lombok.Data;
 

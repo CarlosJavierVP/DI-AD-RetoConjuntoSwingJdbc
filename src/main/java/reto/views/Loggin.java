@@ -1,15 +1,14 @@
-package views;
+package reto.views;
 
-import com.mysql.cj.jdbc.JdbcConnection;
-import dao.CopiaDAO;
-import dao.UsuarioDAO;
-import models.Copia;
-import models.Usuario;
+import reto.JdbcUtils;
+import reto.dao.CopiaDAO;
+import reto.dao.UsuarioDAO;
+import reto.models.Copia;
+import reto.models.Usuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 
 
 public class Loggin extends JFrame {
@@ -21,10 +20,6 @@ public class Loggin extends JFrame {
     private JPanel userpass;
     private JPanel button;
     private JPanel Imagen;
-
-    Connection c = getCon();
-    UsuarioDAO usuarios = new UsuarioDAO(c);
-    CopiaDAO copias = new CopiaDAO(c);
 
     public Loggin() {
         setContentPane(ventana);
@@ -38,9 +33,11 @@ public class Loggin extends JFrame {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Usuario userConectado = usuarios.DataCon(user.getText(),pass.getPassword());
-                //método DAO -> llamar a copia del usuario
-                Copia misCopias = (Copia) copias.findUser(userConectado);
+                UsuarioDAO userConectado = new UsuarioDAO(JdbcUtils.con);
+                Usuario usuario = userConectado.DataCon(user.getText(), pass.getPassword());
+                CopiaDAO misCopias = new CopiaDAO(JdbcUtils.con);
+                Copia miCopia = (Copia) misCopias.findUser(usuario);
+
 
                 Principal miLista = new Principal();
                 miLista.setVisible(true);
@@ -48,8 +45,6 @@ public class Loggin extends JFrame {
 
             }
         });
-
-
 
 
         cerrarAppButton.addActionListener(new ActionListener() {

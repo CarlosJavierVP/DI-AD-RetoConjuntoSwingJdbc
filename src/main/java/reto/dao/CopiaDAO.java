@@ -1,9 +1,8 @@
-package dao;
+package reto.dao;
 
-import models.Copia;
-import models.Usuario;
+import reto.models.Copia;
+import reto.models.Usuario;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,13 @@ public class CopiaDAO implements DAO<Copia>{
     public static final String INSERT_INTO_COPIA = "insert into copia(estado,soporte,id_pelicula,id_usuario)";
     public static final String UPDATE_COPIA = "update copia set estado=?, soporte=? where id=?";
     public static final String DELETE_FROM_COPIA = "delete from copia where id=?";
+    public static final String SELECT_FROM_COPIA_WHERE_ID_USUARIO = "select * from copia where id_usuario = =?";
 
     private static Connection con = null;
 
-    public CopiaDAO (Connection conect){ con = conect;}
+    public CopiaDAO (Connection conect){
+        con = conect;
+    }
 
 
 
@@ -114,7 +116,7 @@ public class CopiaDAO implements DAO<Copia>{
     public List<Copia> findUser(Usuario u) {
         var miLista = new ArrayList<Copia>();
 
-        try(PreparedStatement ps = con.prepareStatement("select * from copia where id_usuario = '"+u.getId()+"'")){
+        try(PreparedStatement ps = con.prepareStatement(SELECT_FROM_COPIA_WHERE_ID_USUARIO)){
             ps.setInt(1,u.getId());
             ResultSet rs = ps.executeQuery();
 

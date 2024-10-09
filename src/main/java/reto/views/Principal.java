@@ -1,4 +1,4 @@
-package views;
+package reto.views;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +26,8 @@ public class Principal extends JFrame{
         model = new DefaultTableModel(campos,0);
         //Inicializa la tabla
         listadoPelis.setModel(model);
+
+
 
 
         setContentPane(ventanaLista);

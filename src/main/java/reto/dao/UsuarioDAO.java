@@ -1,36 +1,43 @@
-package dao;
+package reto.dao;
 
-import models.Usuario;
+import reto.models.Usuario;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UsuarioDAO implements DAO<Usuario>{
+public class UsuarioDAO implements DAO<Usuario> {
     public static final String SELECT_FROM_USUARIO = "select * from usuario";
     public static final String SELECT_FROM_USUARIO_WHERE_ID = "select * from usuario where id=?";
     public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password)";
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
     public static final String SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO = "Select nombre_usuario, password from usuario where nombre_usuario =? && password =?";
-    private static Connection con = null;
-    public UsuarioDAO(Connection conect){con = conect;}
+    public static Connection con = null;
 
-
-
+    public UsuarioDAO(Connection c) {
+        con = c;
+    }
 
 
     @Override
     public List<Usuario> findAll() {
+        String url = "jdbc:mysql://localhost:3306/peliculas";
+        String userDB = "root";
+        String pass = System.getenv("MYSQL_ROOT_PASSWORD");
+        try {
+            con = DriverManager.getConnection(url, userDB, pass);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         var lista = new ArrayList<Usuario>();
 
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SELECT_FROM_USUARIO);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Usuario user = new Usuario();
                 user.setId(rs.getInt("id"));
                 user.setNombre_usuario(rs.getString("nombre_usuario"));
@@ -48,11 +55,11 @@ public class UsuarioDAO implements DAO<Usuario>{
     public Usuario findById(Integer id) {
         Usuario user = null;
 
-        try(PreparedStatement ps = con.prepareStatement(SELECT_FROM_USUARIO_WHERE_ID)){
-            ps.setInt(1,id);
+        try (PreparedStatement ps = con.prepareStatement(SELECT_FROM_USUARIO_WHERE_ID)) {
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 user = new Usuario();
                 user.setId(rs.getInt("id"));
                 user.setNombre_usuario(rs.getString("nombre_usuario"));
@@ -66,11 +73,11 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public void save(Usuario usuario) {
-        try(PreparedStatement ps = con.prepareStatement(INSERT_INTO_USUARIO, Statement.RETURN_GENERATED_KEYS)){
-            ps.setString(1,usuario.getNombre_usuario());
-            ps.setString(2,usuario.getPassword());
+        try (PreparedStatement ps = con.prepareStatement(INSERT_INTO_USUARIO, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, usuario.getNombre_usuario());
+            ps.setString(2, usuario.getPassword());
 
-            if(ps.executeUpdate() == 1){
+            if (ps.executeUpdate() == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
                 usuario.setId(rs.getInt(1));
@@ -84,10 +91,10 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public void update(Usuario usuario) {
-        try(PreparedStatement ps = con.prepareStatement(UPDATE_USUARIO)){
-            ps.setString(1,usuario.getNombre_usuario());
+        try (PreparedStatement ps = con.prepareStatement(UPDATE_USUARIO)) {
+            ps.setString(1, usuario.getNombre_usuario());
             ps.setString(2, usuario.getPassword());
-            ps.setInt(3,usuario.getId());
+            ps.setInt(3, usuario.getId());
 
             ps.executeUpdate();
 
@@ -98,8 +105,8 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public void delete(Usuario usuario) {
-        try(PreparedStatement ps = con.prepareStatement(DELETE_FROM_USUARIO)){
-            ps.setInt(1,usuario.getId());
+        try (PreparedStatement ps = con.prepareStatement(DELETE_FROM_USUARIO)) {
+            ps.setInt(1, usuario.getId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -112,14 +119,14 @@ public class UsuarioDAO implements DAO<Usuario>{
 
      */
     @Override
-    public Usuario DataCon (String user, char[] pass) {
+    public Usuario DataCon(String user, char[] pass) {
         Usuario usuario = null;
-        try(PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO)){
-            ps.setString(1,user);
+        try (PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO)) {
+            ps.setString(1, user);
             ps.setString(2, Arrays.toString(pass));
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNombre_usuario(rs.getString("nombre_usuario"));
@@ -132,6 +139,7 @@ public class UsuarioDAO implements DAO<Usuario>{
 
         return usuario;
     }
+
 
     @Override
     public List<Usuario> findUser(Usuario u) {

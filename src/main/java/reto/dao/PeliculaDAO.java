@@ -1,9 +1,8 @@
-package dao;
+package reto.dao;
 
-import models.Pelicula;
-import models.Usuario;
+import reto.models.Pelicula;
+import reto.models.Usuario;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,9 @@ public class PeliculaDAO implements DAO<Pelicula>{
     public static final String DELETE_FROM = "delete from pelicula where id=?";
     private static Connection con = null;
 
-    public PeliculaDAO(Connection conect){ con = conect; }
+    public PeliculaDAO(Connection conect){
+        con = conect;
+    }
 
     @Override
     public List<Pelicula> findAll() {

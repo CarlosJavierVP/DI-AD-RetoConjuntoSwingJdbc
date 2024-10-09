@@ -1,9 +1,8 @@
-package dao;
+package reto.dao;
 
 
-import models.Usuario;
+import reto.models.Usuario;
 
-import javax.swing.*;
 import java.util.List;
 
 public interface DAO <T>{
