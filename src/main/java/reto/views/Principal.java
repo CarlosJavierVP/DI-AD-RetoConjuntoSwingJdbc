@@ -1,13 +1,15 @@
 package reto.views;
 
 import reto.JdbcUtils;
-import reto.dao.UsuarioDAO;
+import reto.dao.PeliculaDAO;
 import reto.models.Copia;
+import reto.models.Pelicula;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * Clase principal para el marco de la ventana
@@ -24,7 +26,7 @@ public class Principal extends JFrame{
     /**
      * Método principal para mostrar el listado de películas y las funcionalidades de la ventana
      */
-    public Principal(){
+    public Principal(List<Copia> miCopia){
         setContentPane(ventanaLista);
         setTitle("Listado de Películas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,9 +40,15 @@ public class Principal extends JFrame{
         //String [] campos ={"Título", "Genero","año", "descripción","director"};
         model = new DefaultTableModel(campos,0);
 
-
         //Inicializa la tabla
         listadoPelis.setModel(model);
+
+        for(Copia c : miCopia){
+            PeliculaDAO daoPeli = new PeliculaDAO(JdbcUtils.getCon());
+            Pelicula peli = daoPeli.findById(c.getId_pelicula());
+            Object[] fila ={peli.getTitulo(),c.getEstado(), c.getSoporte()};
+            model.addRow(fila);
+        }
 
 
         ventanaLista.add(listadoPelis);

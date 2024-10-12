@@ -11,6 +11,7 @@ import reto.models.Usuario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class Loggin extends JFrame {
                     List<Copia> miCopia = daoCopia.findUser(u);
                     System.out.println(miCopia);
 
-                    Principal miLista = new Principal();
+                    Principal miLista = new Principal(miCopia);
 
                     miLista.setVisible(true);
                     dispose();
