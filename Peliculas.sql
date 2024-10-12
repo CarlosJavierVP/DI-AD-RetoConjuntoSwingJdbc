@@ -59,4 +59,8 @@ INSERT INTO Copia (id_pelicula, id_usuario, estado, soporte) VALUES
 (4,2,'bueno','DVD'),
 (4,1,'bueno','Blu-ray');
 
-
+select nombre_usuario, password from usuario where nombre_usuario = 'juanperez' && password = 'password123';
+select nombre_usuario, password from usuario;
+select * from copia;
+select * from pelicula;
+select * from usuario;

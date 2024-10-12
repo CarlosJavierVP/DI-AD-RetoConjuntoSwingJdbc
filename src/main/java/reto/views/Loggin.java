@@ -2,13 +2,16 @@ package reto.views;
 
 import reto.JdbcUtils;
 import reto.dao.CopiaDAO;
+import reto.dao.PeliculaDAO;
 import reto.dao.UsuarioDAO;
 import reto.models.Copia;
+import reto.models.Pelicula;
 import reto.models.Usuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -34,18 +37,18 @@ public class Loggin extends JFrame {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UsuarioDAO userConectado = new UsuarioDAO(JdbcUtils.con);
-                //Usuario usuario = userConectado.DataCon(user.getText(), pass.getPassword());
-                //CopiaDAO misCopias = new CopiaDAO(JdbcUtils.con);
-                //Copia miCopia = (Copia) misCopias.findUser(usuario);
+                UsuarioDAO dao = new UsuarioDAO(JdbcUtils.getCon());
+                Usuario u = dao.validateUser(user.getText(), Arrays.toString(pass.getPassword()));
+                CopiaDAO daoCopia = new CopiaDAO(JdbcUtils.getCon());
 
+                if (u != null){
+                    Copia miCopia = (Copia) daoCopia.findUser(u);
+                    Principal miLista = new Principal();
+                    miLista.setVisible(true);
+                    dispose();
 
-                List<Usuario> u = userConectado.findAll();
+                }
 
-
-                Principal miLista = new Principal();
-                miLista.setVisible(true);
-                dispose();
 
             }
         });

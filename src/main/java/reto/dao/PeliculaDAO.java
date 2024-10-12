@@ -118,14 +118,5 @@ public class PeliculaDAO implements DAO<Pelicula>{
         }
     }
 
-    @Override
-    public Object DataCon(String u, char[] p) {
-        return null;
-    }
-
-    @Override
-    public List<Pelicula> findUser(Usuario u) {
-        return null;
-    }
 
 }

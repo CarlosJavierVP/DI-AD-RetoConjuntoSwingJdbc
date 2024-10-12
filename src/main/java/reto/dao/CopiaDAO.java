@@ -10,7 +10,7 @@ import java.util.List;
 public class CopiaDAO implements DAO<Copia>{
     public static final String SELECT_FROM_COPIA = "select * from Copia";
     public static final String SELECT_FROM_COPIA_WHERE_ID = "select * from copia where id=?";
-    public static final String INSERT_INTO_COPIA = "insert into copia(estado,soporte,id_pelicula,id_usuario)";
+    public static final String INSERT_INTO_COPIA = "insert into copia(estado,soporte,id_pelicula,id_usuario)values(?,?,?,?)";
     public static final String UPDATE_COPIA = "update copia set estado=?, soporte=? where id=?";
     public static final String DELETE_FROM_COPIA = "delete from copia where id=?";
     public static final String SELECT_FROM_COPIA_WHERE_ID_USUARIO = "select * from copia where id_usuario = =?";
@@ -78,10 +78,17 @@ public class CopiaDAO implements DAO<Copia>{
             ps.setInt(3,copia.getId_pelicula());
             ps.setInt(4,copia.getId_usuario());
 
-            if(ps.executeUpdate() == 1){
-                ResultSet rs = ps.getGeneratedKeys();
-                rs.next();
-                copia.setId(rs.getInt(1));
+            int result = ps.executeUpdate();
+            if(result > 0){
+                ResultSet keys = ps.getGeneratedKeys();
+                keys.next();
+                Integer copia_id = keys.getInt(1);
+                Integer peli_id = keys.getInt(2);
+                Integer user_id = keys.getInt(3);
+
+                copia.setId(copia_id);
+                copia.setId_pelicula(peli_id);
+                copia.setId_usuario(user_id);
             }
 
         } catch (SQLException e) {
@@ -112,12 +119,12 @@ public class CopiaDAO implements DAO<Copia>{
         }
     }
 
-    @Override
     public List<Copia> findUser(Usuario u) {
+        Integer id = u.getId();
         var miLista = new ArrayList<Copia>();
 
         try(PreparedStatement ps = con.prepareStatement(SELECT_FROM_COPIA_WHERE_ID_USUARIO)){
-            ps.setInt(1,u.getId());
+            ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
@@ -127,7 +134,10 @@ public class CopiaDAO implements DAO<Copia>{
                 copy.setSoporte(rs.getString("soporte"));
                 copy.setId_pelicula(rs.getInt("id_pelicula"));
                 copy.setId_usuario(rs.getInt("id_usuario"));
+
+                copy.setId_usuario(id);
                 miLista.add(copy);
+
             }
 
         } catch (SQLException e) {
@@ -137,10 +147,6 @@ public class CopiaDAO implements DAO<Copia>{
         return miLista;
     }
 
-    @Override
-    public Object DataCon(String u, char[] p) {
-        return null;
-    }
 
 
 

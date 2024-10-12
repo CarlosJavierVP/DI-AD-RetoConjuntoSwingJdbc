@@ -22,13 +22,15 @@ public class Principal extends JFrame{
      */
     public Principal(){
         //Establece los campos de la tabla
-        String [] campos ={"Título","Estado","Soporte"};
+        //String [] campos ={"Título","Estado","Soporte"};
+        String [] campos ={"Título", "Genero","año", "descripción","director"};
         model = new DefaultTableModel(campos,0);
+
+
         //Inicializa la tabla
         listadoPelis.setModel(model);
 
-
-
+        ventanaLista.add(listadoPelis);
 
         setContentPane(ventanaLista);
         setTitle("Listado de Películas");

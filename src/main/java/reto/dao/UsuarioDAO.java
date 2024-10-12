@@ -13,7 +13,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password)";
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
-    public static final String SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO = "Select nombre_usuario, password from usuario where nombre_usuario =? && password =?";
+    public static final String SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO = "Select * from usuario where nombre_usuario =? and password =?";
     public static Connection con = null;
 
     public UsuarioDAO(Connection c) {
@@ -23,14 +23,6 @@ public class UsuarioDAO implements DAO<Usuario> {
 
     @Override
     public List<Usuario> findAll() {
-        String url = "jdbc:mysql://localhost:3306/peliculas";
-        String userDB = "root";
-        String pass = System.getenv("MYSQL_ROOT_PASSWORD");
-        try {
-            con = DriverManager.getConnection(url, userDB, pass);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         var lista = new ArrayList<Usuario>();
 
         try {
@@ -118,12 +110,12 @@ public class UsuarioDAO implements DAO<Usuario> {
     JTextField, JPassword
 
      */
-    @Override
-    public Usuario DataCon(String user, char[] pass) {
+
+    public Usuario validateUser(String user, String pass) {
         Usuario usuario = null;
         try (PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO)) {
             ps.setString(1, user);
-            ps.setString(2, Arrays.toString(pass));
+            ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -141,8 +133,4 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
 
-    @Override
-    public List<Usuario> findUser(Usuario u) {
-        return null;
-    }
 }
