@@ -24,6 +24,7 @@ public class Loggin extends JFrame {
     private JPanel userpass;
     private JPanel button;
     private JPanel Imagen;
+    private JLabel error;
 
     public Loggin() {
         setContentPane(ventana);
@@ -37,18 +38,22 @@ public class Loggin extends JFrame {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UsuarioDAO dao = new UsuarioDAO(JdbcUtils.getCon());
-                Usuario u = dao.validateUser(user.getText(), Arrays.toString(pass.getPassword()));
+                UsuarioDAO daoUser = new UsuarioDAO(JdbcUtils.getCon());
                 CopiaDAO daoCopia = new CopiaDAO(JdbcUtils.getCon());
 
+                Usuario u = daoUser.validateUser(user.getText(), pass.getPassword());
+
                 if (u != null){
-                    Copia miCopia = (Copia) daoCopia.findUser(u);
+                    List<Copia> miCopia = daoCopia.findUser(u);
+                    System.out.println(miCopia);
+
                     Principal miLista = new Principal();
+
                     miLista.setVisible(true);
                     dispose();
-
+                }else{
+                    error.setText("Error al ingresar usuario");
                 }
-
 
             }
         });
@@ -64,8 +69,5 @@ public class Loggin extends JFrame {
 
 
     }
-
-
-
 
 }

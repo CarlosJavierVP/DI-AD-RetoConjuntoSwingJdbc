@@ -2,6 +2,7 @@ package reto.dao;
 
 import reto.models.Usuario;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +14,8 @@ public class UsuarioDAO implements DAO<Usuario> {
     public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password)";
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
-    public static final String SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO = "Select * from usuario where nombre_usuario =? and password =?";
-    public static Connection con = null;
+    public static final String SELECT_USUARIO_PASSWORD_FROM_USUARIO = "select * from usuario where nombre_usuario=? and password=?";
+    Connection con;
 
     public UsuarioDAO(Connection c) {
         con = c;
@@ -111,11 +112,14 @@ public class UsuarioDAO implements DAO<Usuario> {
 
      */
 
-    public Usuario validateUser(String user, String pass) {
+    public Usuario validateUser(String user, char[] pass) {
         Usuario usuario = null;
-        try (PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_PASSWORD_FROM_USUARIO)) {
+        try (PreparedStatement ps = con.prepareStatement(SELECT_USUARIO_PASSWORD_FROM_USUARIO)) {
+            //He pasado la contraseña de una cadena char[] (que es propio del JPasswordField) a un String, con el wrapper no funcionaba
+            String passString = new String(pass);
+
             ps.setString(1, user);
-            ps.setString(2, pass);
+            ps.setString(2, passString);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -123,6 +127,8 @@ public class UsuarioDAO implements DAO<Usuario> {
                 usuario.setId(rs.getInt("id"));
                 usuario.setNombre_usuario(rs.getString("nombre_usuario"));
                 usuario.setPassword(rs.getString("password"));
+
+                //usuario.setMicopia((new CopiaDAO(con).findUser(usuario)));
             }
 
         } catch (SQLException e) {

@@ -1,6 +1,7 @@
 package reto.dao;
 
 import reto.models.Copia;
+import reto.models.Pelicula;
 import reto.models.Usuario;
 
 import java.sql.*;
@@ -13,9 +14,9 @@ public class CopiaDAO implements DAO<Copia>{
     public static final String INSERT_INTO_COPIA = "insert into copia(estado,soporte,id_pelicula,id_usuario)values(?,?,?,?)";
     public static final String UPDATE_COPIA = "update copia set estado=?, soporte=? where id=?";
     public static final String DELETE_FROM_COPIA = "delete from copia where id=?";
-    public static final String SELECT_FROM_COPIA_WHERE_ID_USUARIO = "select * from copia where id_usuario = =?";
+    public static final String SELECT_FROM_COPIA_WHERE_ID_USUARIO = "select * from copia where id_usuario=?";
 
-    private static Connection con = null;
+    Connection con;
 
     public CopiaDAO (Connection conect){
         con = conect;
@@ -63,6 +64,7 @@ public class CopiaDAO implements DAO<Copia>{
                 copy.setSoporte(rs.getString("soporte"));
                 copy.setId_pelicula(rs.getInt("id_pelicula"));
                 copy.setId_usuario(rs.getInt("id_usuario"));
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -119,22 +121,23 @@ public class CopiaDAO implements DAO<Copia>{
         }
     }
 
+
     public List<Copia> findUser(Usuario u) {
         Integer id = u.getId();
-        var miLista = new ArrayList<Copia>();
+        var miLista = new ArrayList<Copia>(0);
 
         try(PreparedStatement ps = con.prepareStatement(SELECT_FROM_COPIA_WHERE_ID_USUARIO)){
             ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
+            var result = ps.executeQuery();
 
-            while(rs.next()){
-                Copia copy = new Copia();
-                copy.setId(rs.getInt("id"));
-                copy.setEstado(rs.getString("estado"));
-                copy.setSoporte(rs.getString("soporte"));
-                copy.setId_pelicula(rs.getInt("id_pelicula"));
-                copy.setId_usuario(rs.getInt("id_usuario"));
-
+            while(result.next()){
+                Copia copy = new Copia(
+                        result.getInt(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getInt(4),
+                        result.getInt(5)
+                );
                 copy.setId_usuario(id);
                 miLista.add(copy);
 

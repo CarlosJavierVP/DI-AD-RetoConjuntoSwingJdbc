@@ -13,7 +13,7 @@ public class PeliculaDAO implements DAO<Pelicula>{
     public static final String INSERT_INTO_PELICULA = "insert into pelicula(titulo,genero,año,descripcion,director)";
     public static final String UPDATE_PELICULA = "update pelicula set titulo=?, genero=?, año=?, descripcion=?, director=? where id=?";
     public static final String DELETE_FROM = "delete from pelicula where id=?";
-    private static Connection con = null;
+    Connection con;
 
     public PeliculaDAO(Connection conect){
         con = conect;

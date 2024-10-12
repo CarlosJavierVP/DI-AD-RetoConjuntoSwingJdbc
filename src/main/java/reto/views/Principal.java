@@ -1,5 +1,9 @@
 package reto.views;
 
+import reto.JdbcUtils;
+import reto.dao.UsuarioDAO;
+import reto.models.Copia;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -21,17 +25,6 @@ public class Principal extends JFrame{
      * Método principal para mostrar el listado de películas y las funcionalidades de la ventana
      */
     public Principal(){
-        //Establece los campos de la tabla
-        //String [] campos ={"Título","Estado","Soporte"};
-        String [] campos ={"Título", "Genero","año", "descripción","director"};
-        model = new DefaultTableModel(campos,0);
-
-
-        //Inicializa la tabla
-        listadoPelis.setModel(model);
-
-        ventanaLista.add(listadoPelis);
-
         setContentPane(ventanaLista);
         setTitle("Listado de Películas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +32,18 @@ public class Principal extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
         pack();
+
+        //Establece los campos de la tabla
+        String [] campos ={"Título","Estado","Soporte"};
+        //String [] campos ={"Título", "Genero","año", "descripción","director"};
+        model = new DefaultTableModel(campos,0);
+
+
+        //Inicializa la tabla
+        listadoPelis.setModel(model);
+
+
+        ventanaLista.add(listadoPelis);
 
         listadoPelis.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
