@@ -1,6 +1,8 @@
 package reto.views;
 
 import reto.JdbcUtils;
+import reto.Session;
+import reto.UtilityDTO;
 import reto.dao.CopiaDAO;
 import reto.dao.PeliculaDAO;
 import reto.dao.UsuarioDAO;
@@ -46,13 +48,18 @@ public class Loggin extends JFrame {
 
                 if (u != null){
                     List<Copia> miCopia = daoCopia.findUser(u);
-                    System.out.println(miCopia);
+                    u.setMicopia(miCopia);
 
-                    Principal miLista = new Principal(miCopia);
+                    UtilityDTO.copyDTO = miCopia;
+                    Session.userSelected = u;
+                    System.out.println(u);
+
+                    Principal miLista = new Principal();
 
                     miLista.setVisible(true);
                     dispose();
                 }else{
+                    //Ponerlo en JOptionPane
                     error.setText("Error al ingresar usuario");
                 }
 
