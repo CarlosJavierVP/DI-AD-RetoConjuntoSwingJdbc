@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="reto.views.Detalle">
+  <grid id="27dc6" binding="detailPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="62634" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="e3609" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="West"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="fd09c" class="javax.swing.JLabel" binding="titleDetail">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
+              <component id="f3d8a" class="javax.swing.JLabel" binding="genreDetail">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
+              <grid id="5fb44" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="54576" class="javax.swing.JLabel" binding="yearDetail">
+                    <constraints border-constraint="North"/>
+                    <properties>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="af3a3" class="javax.swing.JLabel" binding="directorDetail">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="244fc" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="East"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="73a8c" class="javax.swing.JLabel" binding="descriptionDetail">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="5a5e3" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="44eb6" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="7455a" class="javax.swing.JLabel" binding="formatDetail">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
+              <component id="ec04d" class="javax.swing.JLabel" binding="conditionDetail">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="e9711" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="bcd7d" class="javax.swing.JButton" binding="buttonBack">
+            <constraints/>
+            <properties>
+              <text value="Volver"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
