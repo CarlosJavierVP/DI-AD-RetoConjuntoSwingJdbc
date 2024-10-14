@@ -5,7 +5,6 @@ import reto.UtilityDTO;
 import javax.swing.*;
 
 import static reto.Session.copySelected;
-import static reto.UtilityDTO.copyDTO;
 import static reto.UtilityDTO.peliDTO;
 
 public class Detalle extends JDialog {

@@ -4,8 +4,6 @@ import reto.models.Copia;
 import reto.models.Pelicula;
 import reto.models.Usuario;
 
-import java.util.List;
-
 /**
  * Clase Session para almacenar información
  */

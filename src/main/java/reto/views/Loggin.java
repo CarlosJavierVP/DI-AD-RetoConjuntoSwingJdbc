@@ -52,6 +52,8 @@ public class Loggin extends JFrame {
                     dispose();
                 }else{
                     JOptionPane.showMessageDialog(this,"Error al ingresar cuenta");
+                    user.setText("");
+                    pass.setText("");
                 }
 
         });

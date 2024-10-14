@@ -36,6 +36,10 @@ public class Principal extends JFrame{
         //Inicializa la tabla
         listadoPelis.setModel(model);
 
+        /*
+        * se itera la lista de copias (que previamente en loggin se había seteado en copyDTO), y se añade cada elemento
+        * de la copia que interesa poner en la tabla, se setea la Película de cada copia y se añade el título
+        * */
         for(Copia c : copyDTO){
             PeliculaDAO daoPeli = new PeliculaDAO(JdbcUtils.getCon());
             Pelicula peli = daoPeli.findById(c.getId_pelicula());
@@ -53,12 +57,13 @@ public class Principal extends JFrame{
         pack();
 
 
+        /*
+        * Funcionalidad al seleccionar un item de la tabla, en el que muestra una ventana de detalle con la información
+        * de la copia y la película a la que se refiere
+        * */
         listadoPelis.getSelectionModel().addListSelectionListener( e ->{
             PeliculaDAO peliDao = new PeliculaDAO(JdbcUtils.getCon());
             if (e.getValueIsAdjusting()) return;
-            var titulo = model.getValueAt(listadoPelis.getSelectedRow(),0).toString();
-            var estado = model.getValueAt(listadoPelis.getSelectedRow(),1).toString();
-            var soporte = model.getValueAt(listadoPelis.getSelectedRow(),2).toString();
 
             int select = listadoPelis.getSelectedRow();
             copySelected = copyDTO.get(select);
@@ -66,14 +71,13 @@ public class Principal extends JFrame{
 
             peliDTO = peliDao.findById(idPeli);
 
-            System.out.println(peliDTO);
-
             var detalle = new Detalle();
             detalle.setVisible(true);
             dispose();
 
         });
 
+        //Botón volver a loggin
         btnVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +86,8 @@ public class Principal extends JFrame{
                 dispose();
             }
         });
+
+        //Botón cerrar aplicación
         btnSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
