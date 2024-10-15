@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import static reto.Session.paramsnotnull;
+
 
 public class Loggin extends JFrame {
     private JPanel ventana;
@@ -50,6 +52,8 @@ public class Loggin extends JFrame {
 
                     miLista.setVisible(true);
                     dispose();
+                    paramsnotnull();
+
                 }else{
                     JOptionPane.showMessageDialog(this,"Error al ingresar cuenta");
                     user.setText("");

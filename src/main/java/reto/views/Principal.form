@@ -46,25 +46,47 @@
           </component>
         </children>
       </scrollpane>
-      <grid id="b1671" binding="botones" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      <grid id="b1671" binding="botones" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="15f22" class="javax.swing.JButton" binding="btnVolver">
-            <constraints/>
-            <properties>
-              <label value="Atrás"/>
-              <text value="Atrás"/>
-            </properties>
-          </component>
-          <component id="bf363" class="javax.swing.JButton" binding="btnSalir">
-            <constraints/>
-            <properties>
-              <label value="Salir"/>
-              <text value="Salir"/>
-            </properties>
-          </component>
+          <grid id="82a97" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="bf363" class="javax.swing.JButton" binding="btnSalir">
+                <constraints/>
+                <properties>
+                  <label value="Salir"/>
+                  <text value="Salir"/>
+                </properties>
+              </component>
+              <component id="15f22" class="javax.swing.JButton" binding="btnVolver">
+                <constraints/>
+                <properties>
+                  <label value="Atrás"/>
+                  <text value="Atrás"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ddf0c" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="East"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="13c04" class="javax.swing.JButton" binding="btnAdd">
+                <constraints/>
+                <properties>
+                  <icon value="img/circulo-plus.png"/>
+                  <label value="Añadir"/>
+                  <text value="Añadir"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

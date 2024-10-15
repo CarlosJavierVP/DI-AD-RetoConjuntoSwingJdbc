@@ -25,6 +25,7 @@ public class Principal extends JFrame{
     private JButton btnVolver;
     private JButton btnSalir;
     private JPanel botones;
+    private JButton btnAdd;
 
     /**
      * Método principal para mostrar el listado de películas y las funcionalidades de la ventana
@@ -74,6 +75,10 @@ public class Principal extends JFrame{
             var detalle = new Detalle();
             detalle.setVisible(true);
             dispose();
+
+        });
+
+        btnAdd.addActionListener( e ->{
 
         });
 

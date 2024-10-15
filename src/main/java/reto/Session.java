@@ -12,5 +12,9 @@ public class Session {
     public static Pelicula peliSelected = null;
     public static Usuario userSelected = null;
 
+    public static void paramsnotnull(){
+        userSelected = null;
+    }
+
 
 }

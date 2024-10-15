@@ -10,13 +10,14 @@ import static reto.UtilityDTO.peliDTO;
 public class Detalle extends JDialog {
     private JPanel detailPane;
     private JButton buttonBack;
-    private JLabel titleDetail;
-    private JLabel genreDetail;
-    private JLabel yearDetail;
-    private JLabel directorDetail;
-    private JLabel descriptionDetail;
-    private JLabel formatDetail;
-    private JLabel conditionDetail;
+    private JTextField titleDetail;
+    private JTextField genreDetail;
+    private JTextField yearDetail;
+    private JTextField directorDetail;
+    private JTextField descriptionDetail;
+    private JTextField formatDetail;
+    private JTextField conditionDetail;
+    private JButton btnEliminar;
 
 
     public Detalle(){
