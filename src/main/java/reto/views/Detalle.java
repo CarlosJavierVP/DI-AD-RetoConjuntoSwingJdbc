@@ -1,6 +1,8 @@
 package reto.views;
 
+import reto.JdbcUtils;
 import reto.UtilityDTO;
+import reto.dao.CopiaDAO;
 
 import javax.swing.*;
 
@@ -42,7 +44,19 @@ public class Detalle extends JDialog {
             dispose();
         });
 
+        btnEliminar.addActionListener( e -> {
+            borrar();
+        });
 
+
+    }
+
+    private void borrar(){
+        var resultado = JOptionPane.showConfirmDialog(this,"¿Desea borrar la copia?");
+        if (resultado == JOptionPane.YES_OPTION){
+            CopiaDAO copyDao = new CopiaDAO(JdbcUtils.getCon());
+            copyDao.delete(copySelected);
+        }
     }
 
 }

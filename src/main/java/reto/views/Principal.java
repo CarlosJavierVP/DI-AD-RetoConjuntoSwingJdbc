@@ -36,6 +36,9 @@ public class Principal extends JFrame{
         model = new DefaultTableModel(campos,0);
         //Inicializa la tabla
         listadoPelis.setModel(model);
+        //Modificación de la anchura de la columna título, para dar más espacio en detrimento de "estado" y "soporte"
+        var columnaTituloPeli = listadoPelis.getColumnModel().getColumn(0);
+        columnaTituloPeli.setPreferredWidth(300);
 
         /*
         * se itera la lista de copias (que previamente en loggin se había seteado en copyDTO), y se añade cada elemento
@@ -52,10 +55,10 @@ public class Principal extends JFrame{
         setContentPane(ventanaLista);
         setTitle("Listado de Películas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000,500);
+        setSize(500,500);
         setLocationRelativeTo(null);
         setResizable(false);
-        pack();
+        //pack();
 
 
         /*
@@ -79,6 +82,9 @@ public class Principal extends JFrame{
         });
 
         btnAdd.addActionListener( e ->{
+            var añadidCopia = new AddCopia();
+            añadidCopia.setVisible(true);
+            dispose();
 
         });
 
