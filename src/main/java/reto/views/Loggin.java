@@ -52,7 +52,6 @@ public class Loggin extends JFrame {
 
                     miLista.setVisible(true);
                     dispose();
-                    paramsnotnull();
 
                 }else{
                     JOptionPane.showMessageDialog(this,"Error al ingresar cuenta");

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 
 import static reto.Session.copySelected;
+import static reto.Session.paramsnotnull;
 import static reto.UtilityDTO.copyDTO;
 import static reto.UtilityDTO.peliDTO;
 
@@ -95,6 +96,7 @@ public class Principal extends JFrame{
                 Loggin ventanaAntes = new Loggin();
                 ventanaAntes.setVisible(true);
                 dispose();
+                paramsnotnull();
             }
         });
 
@@ -102,6 +104,7 @@ public class Principal extends JFrame{
         btnSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                paramsnotnull();
                 dispose();
             }
         });
