@@ -59,7 +59,7 @@
                     <constraints border-constraint="North"/>
                     <properties/>
                   </component>
-                  <component id="52ec3" class="javax.swing.JComboBox" binding="soportePelicula">
+                  <component id="52ec3" class="javax.swing.JComboBox" binding="peliculaCombo">
                     <constraints border-constraint="Center"/>
                     <properties/>
                   </component>
