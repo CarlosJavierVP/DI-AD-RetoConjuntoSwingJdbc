@@ -1,7 +1,6 @@
 package reto.dao;
 
 import reto.models.Copia;
-import reto.models.Pelicula;
 import reto.models.Usuario;
 
 import java.sql.*;
@@ -16,7 +15,7 @@ public class CopiaDAO implements DAO<Copia>{
     public static final String DELETE_FROM_COPIA = "delete from copia where id=?";
     public static final String SELECT_FROM_COPIA_WHERE_ID_USUARIO = "select * from copia where id_usuario=?";
 
-    Connection con;
+    private static Connection con = null;
 
     public CopiaDAO (Connection conect){
         con = conect;
@@ -122,7 +121,7 @@ public class CopiaDAO implements DAO<Copia>{
     }
 
 
-    public List<Copia> findUser(Usuario u) {
+    public List<Copia> findByUser(Usuario u) {
         Integer id = u.getId();
         var miLista = new ArrayList<Copia>(0);
 

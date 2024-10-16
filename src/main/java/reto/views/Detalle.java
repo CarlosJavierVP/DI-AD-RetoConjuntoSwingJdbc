@@ -1,13 +1,12 @@
 package reto.views;
 
 import reto.JdbcUtils;
-import reto.UtilityDTO;
+import reto.Session;
 import reto.dao.CopiaDAO;
-
 import javax.swing.*;
-
 import static reto.Session.copySelected;
-import static reto.UtilityDTO.peliDTO;
+import static reto.Session.peliDTO;
+
 
 public class Detalle extends JDialog {
     private JPanel detailPane;
@@ -21,11 +20,12 @@ public class Detalle extends JDialog {
     private JTextField conditionDetail;
     private JButton btnEliminar;
 
+    CopiaDAO cdao = new CopiaDAO(JdbcUtils.getCon());
 
     public Detalle(){
         setContentPane(detailPane);
         setModal(true);
-        setTitle(UtilityDTO.peliDTO.getTitulo());
+        setTitle(peliDTO.getTitulo());
         setLocationRelativeTo(null);
 
         titleDetail.setText(peliDTO.getTitulo());
@@ -39,13 +39,18 @@ public class Detalle extends JDialog {
         pack();
 
         buttonBack.addActionListener( e ->{
+            peliDTO = null;
             var principal = new Principal();
             principal.setVisible(true);
             dispose();
         });
 
         btnEliminar.addActionListener( e -> {
-            borrar();
+            cdao.delete(copySelected);
+            peliDTO = null;
+            var principal = new Principal();
+            principal.setVisible(true);
+            dispose();
         });
 
 

@@ -1,28 +1,25 @@
 package reto.views;
 
 import reto.JdbcUtils;
-import reto.dao.CopiaDAO;
 import reto.dao.PeliculaDAO;
 import reto.models.Copia;
 import reto.models.Pelicula;
-
 import javax.swing.*;
-
 import java.util.List;
+import static reto.Session.*;
 
-import static reto.Session.userSelected;
 
 public class AddCopia extends JDialog {
-
     private JPanel ventanaAdd;
     private JPanel DatosAdd;
-    private JComboBox soporteCombo;
-    private JComboBox peliculaCombo;
+    private JComboBox<String> soporteCombo;
+    private JComboBox<String> peliculaCombo;
     private JRadioButton buenoRadioButton;
     private JRadioButton dañadoRadioButton;
     private JButton btnGuardar;
     private JButton btnCancelar;
 
+    private Pelicula p = new Pelicula();
 
     public AddCopia(){
         setContentPane(ventanaAdd);
@@ -30,14 +27,10 @@ public class AddCopia extends JDialog {
         setTitle("Añadir Copia");
         setLocationRelativeTo(null);
         setSize(300,250);
-        setResizable(false);
+        //setResizable(false);
         //pack();
 
-        CopiaDAO cDao = new CopiaDAO(JdbcUtils.getCon());
         PeliculaDAO peliDao = new PeliculaDAO(JdbcUtils.getCon());
-        Copia nuevaCopia = new Copia();
-        nuevaCopia.setU(userSelected);
-        nuevaCopia.setId_usuario(userSelected.getId());
 
         //añadir al comboBox de soporte las opciones
         var opcionesSoporte = new DefaultComboBoxModel<String>();
@@ -45,49 +38,63 @@ public class AddCopia extends JDialog {
         opcionesSoporte.addElement("");
         opcionesSoporte.addElement("DVD");
         opcionesSoporte.addElement("Blu-ray");
-        //setear el soporte en la nueva copia
-        nuevaCopia.setSoporte(opcionesSoporte.toString());
+
 
         //añadir al comboBox de pelis las opciones
         var opcionesPeliculas = new DefaultComboBoxModel<String>();
         peliculaCombo.setModel(opcionesPeliculas);
         List<Pelicula> listaPelis = peliDao.findAll();
 
+
         for (Pelicula peli : listaPelis){
             opcionesPeliculas.addElement(peli.getTitulo());
-            //Setear la id_pelicula de la copia con la id de la peli seleccionada en el comboBox
-            nuevaCopia.setId_pelicula(peli.getId());
-
-            //Setear la película de la copia con la peli seleccionada
-            nuevaCopia.setPeli(peli);
         }
+        //Setear en peliDTO la película elegida
+        p = (Pelicula) opcionesPeliculas.getSelectedItem();
+        peliDTO = p;
 
-        buenoRadioButton.addActionListener( e ->{
-            if (buenoRadioButton.isSelected()){
-                dañadoRadioButton.setSelected(false);
-                nuevaCopia.setEstado("bueno");
-            }
-        });
-
-        dañadoRadioButton.addActionListener( e ->{
-            if (dañadoRadioButton.isSelected()){
-                buenoRadioButton.setSelected(false);
-                nuevaCopia.setEstado("dañado");
-            }
-        });
 
         btnGuardar.addActionListener( e ->{
-            nuevaCopia.setId_usuario(userSelected.getId());
-            nuevaCopia.setU(userSelected);
-            var principal = new Principal();
-            principal.setVisible(true);
-            dispose();
+            guardarCopia();
         });
 
         btnCancelar.addActionListener( e ->{
-            cDao.delete(nuevaCopia);
-
+            cancelar();
         });
 
+    }
+
+    private void guardarCopia() {
+        copySelected = new Copia();
+
+        if ( peliDTO != null) {
+
+            if (buenoRadioButton.isSelected()){
+                copySelected.setEstado("bueno");
+            } else if (dañadoRadioButton.isSelected()) {
+                copySelected.setEstado("dañado");
+            }
+
+            //Setear la copia nueva
+            Copia nuevaCopia = new Copia(
+                    null,
+                    copySelected.getEstado(),
+                    soporteCombo.toString(),
+                    peliDTO.getId(),
+                    userSelected.getId()
+            );
+            nuevaCopia.setPeli(peliDTO);
+            //Añadir al listado de copias la copiaNueva
+            copyDTO.add(nuevaCopia);
+        }
+        var principal = new Principal();
+        principal.setVisible(true);
+        dispose();
+    }
+
+    private void cancelar() {
+        var principal = new Principal();
+        principal.setVisible(true);
+        dispose();
     }
 }

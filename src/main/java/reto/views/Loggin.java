@@ -2,7 +2,6 @@ package reto.views;
 
 import reto.JdbcUtils;
 import reto.Session;
-import reto.UtilityDTO;
 import reto.dao.CopiaDAO;
 import reto.dao.UsuarioDAO;
 import reto.models.Copia;
@@ -42,10 +41,10 @@ public class Loggin extends JFrame {
                 Usuario u = daoUser.validateUser(user.getText(), pass.getPassword());
 
                 if (u != null){
-                    List<Copia> miCopia = daoCopia.findUser(u);
+                    List<Copia> miCopia = daoCopia.findByUser(u);
                     u.setMicopia(miCopia);
 
-                    UtilityDTO.copyDTO = miCopia;
+                    Session.copyDTO = miCopia;
                     Session.userSelected = u;
 
                     Principal miLista = new Principal();
@@ -65,6 +64,7 @@ public class Loggin extends JFrame {
         cerrarAppButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                paramsnotnull();
                 dispose();
             }
         });

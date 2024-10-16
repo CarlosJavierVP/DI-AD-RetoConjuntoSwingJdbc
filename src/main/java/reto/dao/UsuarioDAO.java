@@ -15,7 +15,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
     public static final String SELECT_USUARIO_PASSWORD_FROM_USUARIO = "select * from usuario where nombre_usuario=? and password=?";
-    Connection con;
+    private static Connection con = null;
 
     public UsuarioDAO(Connection c) {
         con = c;

@@ -1,6 +1,8 @@
 package reto.views;
 
 import reto.JdbcUtils;
+import reto.Session;
+import reto.dao.CopiaDAO;
 import reto.dao.PeliculaDAO;
 import reto.models.Copia;
 import reto.models.Pelicula;
@@ -9,11 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static reto.Session.*;
 
-import static reto.Session.copySelected;
-import static reto.Session.paramsnotnull;
-import static reto.UtilityDTO.copyDTO;
-import static reto.UtilityDTO.peliDTO;
 
 /**
  * Clase principal para el marco de la ventana
@@ -83,6 +82,8 @@ public class Principal extends JFrame{
         });
 
         btnAdd.addActionListener( e ->{
+            peliDTO = null;
+            copySelected = null;
             var añadidCopia = new AddCopia();
             añadidCopia.setVisible(true);
             dispose();
