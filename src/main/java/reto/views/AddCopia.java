@@ -20,6 +20,7 @@ public class AddCopia extends JDialog {
     private JButton btnCancelar;
 
     private Pelicula p = new Pelicula();
+    private PeliculaDAO pDao = new PeliculaDAO(JdbcUtils.getCon());
 
     public AddCopia(){
         setContentPane(ventanaAdd);
@@ -39,7 +40,6 @@ public class AddCopia extends JDialog {
         opcionesSoporte.addElement("DVD");
         opcionesSoporte.addElement("Blu-ray");
 
-
         //añadir al comboBox de pelis las opciones
         var opcionesPeliculas = new DefaultComboBoxModel<String>();
         peliculaCombo.setModel(opcionesPeliculas);
@@ -49,9 +49,6 @@ public class AddCopia extends JDialog {
         for (Pelicula peli : listaPelis){
             opcionesPeliculas.addElement(peli.getTitulo());
         }
-        //Setear en peliDTO la película elegida
-        p = (Pelicula) opcionesPeliculas.getSelectedItem();
-        peliDTO = p;
 
 
         btnGuardar.addActionListener( e ->{
@@ -66,6 +63,8 @@ public class AddCopia extends JDialog {
 
     private void guardarCopia() {
         copySelected = new Copia();
+        String titulo = (String) peliculaCombo.getSelectedItem();
+        peliDTO = pDao.findByTitle(titulo);
 
         if ( peliDTO != null) {
 
@@ -74,12 +73,13 @@ public class AddCopia extends JDialog {
             } else if (dañadoRadioButton.isSelected()) {
                 copySelected.setEstado("dañado");
             }
+            String sop = (String) soporteCombo.getSelectedItem();
 
             //Setear la copia nueva
             Copia nuevaCopia = new Copia(
                     null,
                     copySelected.getEstado(),
-                    soporteCombo.toString(),
+                    sop,
                     peliDTO.getId(),
                     userSelected.getId()
             );
