@@ -1,6 +1,7 @@
 package reto.views;
 
 import reto.JdbcUtils;
+import reto.dao.CopiaDAO;
 import reto.dao.PeliculaDAO;
 import reto.models.Copia;
 import reto.models.Pelicula;
@@ -21,6 +22,7 @@ public class AddCopia extends JDialog {
 
     private Pelicula p = new Pelicula();
     private PeliculaDAO pDao = new PeliculaDAO(JdbcUtils.getCon());
+    private CopiaDAO cDao = new CopiaDAO(JdbcUtils.getCon());
 
     public AddCopia(){
         setContentPane(ventanaAdd);
@@ -73,23 +75,25 @@ public class AddCopia extends JDialog {
             } else if (dañadoRadioButton.isSelected()) {
                 copySelected.setEstado("dañado");
             }
-            String sop = (String) soporteCombo.getSelectedItem();
 
             //Setear la copia nueva
-            Copia nuevaCopia = new Copia(
-                    null,
-                    copySelected.getEstado(),
-                    sop,
-                    peliDTO.getId(),
-                    userSelected.getId()
-            );
+            Copia nuevaCopia = new Copia();
+            nuevaCopia.setEstado(copySelected.getEstado());
+            nuevaCopia.setSoporte((String) soporteCombo.getSelectedItem());
+            nuevaCopia.setId_pelicula(peliDTO.getId());
+            nuevaCopia.setId_usuario(userSelected.getId());
             nuevaCopia.setPeli(peliDTO);
+
             //Añadir al listado de copias la copiaNueva
             copyDTO.add(nuevaCopia);
+            //guardar la copia en la base de datos
+            cDao.save(nuevaCopia);
+
         }
         var principal = new Principal();
-        principal.setVisible(true);
         dispose();
+        principal.setVisible(true);
+
     }
 
     private void cancelar() {

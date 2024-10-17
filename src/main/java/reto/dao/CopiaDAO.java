@@ -79,8 +79,7 @@ public class CopiaDAO implements DAO<Copia>{
             ps.setInt(3,copia.getId_pelicula());
             ps.setInt(4,copia.getId_usuario());
 
-            int result = ps.executeUpdate();
-            if(result > 0){
+            if(ps.executeUpdate() == 1){
                 ResultSet keys = ps.getGeneratedKeys();
                 keys.next();
                 Integer copia_id = keys.getInt(1);
@@ -113,6 +112,7 @@ public class CopiaDAO implements DAO<Copia>{
     @Override
     public void delete(Copia copia) {
         try(PreparedStatement ps = con.prepareStatement(DELETE_FROM_COPIA)){
+            ps.setInt(1, copia.getId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
