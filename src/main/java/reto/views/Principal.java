@@ -48,7 +48,7 @@ public class Principal extends JFrame{
         mostrarListaCopias();
 
         setContentPane(ventanaLista);
-        setTitle("Listado de Películas");
+        setTitle("Listado de Películas - "+userSelected.getNombre_usuario());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500,500);
         setLocationRelativeTo(null);

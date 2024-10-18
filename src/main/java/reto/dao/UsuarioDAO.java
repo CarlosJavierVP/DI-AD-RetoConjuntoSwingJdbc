@@ -11,10 +11,11 @@ import java.util.List;
 public class UsuarioDAO implements DAO<Usuario> {
     public static final String SELECT_FROM_USUARIO = "select * from usuario";
     public static final String SELECT_FROM_USUARIO_WHERE_ID = "select * from usuario where id=?";
-    public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password)";
+    public static final String INSERT_INTO_USUARIO = "insert into usuario(nombre_usuario,password) values(?,?)";
     public static final String UPDATE_USUARIO = "update usuario set nombre_usuario=?, password=? where id=?";
     public static final String DELETE_FROM_USUARIO = "delete from usuario where id=?";
     public static final String SELECT_USUARIO_PASSWORD_FROM_USUARIO = "select * from usuario where nombre_usuario=? and password=?";
+    public static final String SELECT_NOMBRE_USUARIO_FROM_USUARIO = "Select nombre_usuario from usuario where nombre_usuario=?";
     private static Connection con = null;
 
     public UsuarioDAO(Connection c) {
@@ -107,11 +108,6 @@ public class UsuarioDAO implements DAO<Usuario> {
         }
     }
 
-    /*
-    JTextField, JPassword
-
-     */
-
     public Usuario validateUser(String user, char[] pass) {
         Usuario usuario = null;
         try (PreparedStatement ps = con.prepareStatement(SELECT_USUARIO_PASSWORD_FROM_USUARIO)) {
@@ -137,6 +133,27 @@ public class UsuarioDAO implements DAO<Usuario> {
 
         return usuario;
     }
+
+    public Usuario validateNewUser(String user){
+        Usuario usuario = null;
+        try(PreparedStatement ps = con.prepareStatement(SELECT_NOMBRE_USUARIO_FROM_USUARIO)){
+            ps.setString(1,user);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                usuario = new Usuario();
+                usuario.setNombre_usuario(rs.getString("nombre_usuario"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return usuario;
+    }
+
+
+
+
 
 
 }

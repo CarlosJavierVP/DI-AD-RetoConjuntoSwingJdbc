@@ -26,6 +26,7 @@ public class Loggin extends JFrame {
     private JButton iniciarSesionButton;
     /**Atributo JButton botón para cerrar la apliación*/
     private JButton cerrarAppButton;
+    /**Atributo JButton para registrar usuario nuevo*/
     private JButton addUser;
 
 
@@ -47,6 +48,12 @@ public class Loggin extends JFrame {
         cerrarAppButton.addActionListener((e) -> {
                 paramsnotnull();
                 dispose();
+        });
+
+        addUser.addActionListener((e)->{
+            paramsnotnull();
+            AddUser nuevoUsuario = new AddUser();
+            nuevoUsuario.setVisible(true);
         });
 
     }
