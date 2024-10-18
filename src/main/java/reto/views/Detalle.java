@@ -4,8 +4,8 @@ import reto.JdbcUtils;
 import reto.Session;
 import reto.dao.CopiaDAO;
 import javax.swing.*;
-import static reto.Session.copySelected;
-import static reto.Session.peliDTO;
+
+import static reto.Session.*;
 
 
 public class Detalle extends JDialog {
@@ -15,18 +15,20 @@ public class Detalle extends JDialog {
     private JTextField genreDetail;
     private JTextField yearDetail;
     private JTextField directorDetail;
-    private JTextField descriptionDetail;
+    private JTextArea descriptionDetail;
     private JTextField formatDetail;
     private JTextField conditionDetail;
     private JButton btnEliminar;
 
     CopiaDAO cdao = new CopiaDAO(JdbcUtils.getCon());
 
+
     public Detalle(){
         setContentPane(detailPane);
         setModal(true);
         setTitle(peliDTO.getTitulo());
         setLocationRelativeTo(null);
+        setResizable(false);
 
         titleDetail.setText(peliDTO.getTitulo());
         genreDetail.setText(peliDTO.getGenero());
@@ -46,22 +48,19 @@ public class Detalle extends JDialog {
         });
 
         btnEliminar.addActionListener( e -> {
-            cdao.delete(copySelected);
-            peliDTO = null;
-            var principal = new Principal();
-            principal.setVisible(true);
-            dispose();
+            borrar();
         });
-
-
     }
 
     private void borrar(){
         var resultado = JOptionPane.showConfirmDialog(this,"¿Desea borrar la copia?");
         if (resultado == JOptionPane.YES_OPTION){
-            CopiaDAO copyDao = new CopiaDAO(JdbcUtils.getCon());
-            copyDao.delete(copySelected);
+            copyDTO.remove(copySelected);
+            peliDTO = null;
         }
+        dispose();
+        var principal = new Principal();
+        principal.setVisible(true);
     }
 
 }

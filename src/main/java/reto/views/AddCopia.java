@@ -19,8 +19,8 @@ public class AddCopia extends JDialog {
     private JRadioButton dañadoRadioButton;
     private JButton btnGuardar;
     private JButton btnCancelar;
+    private JLabel warning;
 
-    private Pelicula p = new Pelicula();
     private PeliculaDAO pDao = new PeliculaDAO(JdbcUtils.getCon());
     private CopiaDAO cDao = new CopiaDAO(JdbcUtils.getCon());
 
@@ -46,12 +46,9 @@ public class AddCopia extends JDialog {
         var opcionesPeliculas = new DefaultComboBoxModel<String>();
         peliculaCombo.setModel(opcionesPeliculas);
         List<Pelicula> listaPelis = peliDao.findAll();
-
-
         for (Pelicula peli : listaPelis){
             opcionesPeliculas.addElement(peli.getTitulo());
         }
-
 
         btnGuardar.addActionListener( e ->{
             guardarCopia();
@@ -68,14 +65,8 @@ public class AddCopia extends JDialog {
         String titulo = (String) peliculaCombo.getSelectedItem();
         peliDTO = pDao.findByTitle(titulo);
 
-        if ( peliDTO != null) {
-
-            if (buenoRadioButton.isSelected()){
-                copySelected.setEstado("bueno");
-            } else if (dañadoRadioButton.isSelected()) {
-                copySelected.setEstado("dañado");
-            }
-
+        if ( peliDTO != null && soporteCombo != null && estadoPeli()) {
+            estadoPeli();
             //Setear la copia nueva
             Copia nuevaCopia = new Copia();
             nuevaCopia.setEstado(copySelected.getEstado());
@@ -83,17 +74,32 @@ public class AddCopia extends JDialog {
             nuevaCopia.setId_pelicula(peliDTO.getId());
             nuevaCopia.setId_usuario(userSelected.getId());
             nuevaCopia.setPeli(peliDTO);
+            nuevaCopia.setU(userSelected);
 
             //Añadir al listado de copias la copiaNueva
             copyDTO.add(nuevaCopia);
             //guardar la copia en la base de datos
             cDao.save(nuevaCopia);
 
-        }
-        var principal = new Principal();
-        dispose();
-        principal.setVisible(true);
+            var principal = new Principal();
+            dispose();
+            principal.setVisible(true);
 
+        } else{
+            warning.setText("Introduce todos los valores");
+        }
+
+    }
+    private boolean estadoPeli() {
+        boolean flag = false;
+        if (buenoRadioButton.isSelected()){
+            copySelected.setEstado("bueno");
+            flag = true;
+        } else if (dañadoRadioButton.isSelected()) {
+            copySelected.setEstado("dañado");
+            flag = true;
+        }
+        return flag;
     }
 
     private void cancelar() {

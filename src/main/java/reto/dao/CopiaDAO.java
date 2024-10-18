@@ -83,12 +83,8 @@ public class CopiaDAO implements DAO<Copia>{
                 ResultSet keys = ps.getGeneratedKeys();
                 keys.next();
                 Integer copia_id = keys.getInt(1);
-                Integer peli_id = keys.getInt(2);
-                Integer user_id = keys.getInt(3);
-
                 copia.setId(copia_id);
-                copia.setId_pelicula(peli_id);
-                copia.setId_usuario(user_id);
+
             }
 
         } catch (SQLException e) {

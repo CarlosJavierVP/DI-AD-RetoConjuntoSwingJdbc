@@ -40,6 +40,8 @@
             </constraints>
             <properties>
               <margin top="2" left="5" bottom="2" right="5"/>
+              <name value=""/>
+              <text value="password123"/>
             </properties>
           </component>
           <component id="28cea" class="javax.swing.JTextField" binding="user">
@@ -50,6 +52,8 @@
             </constraints>
             <properties>
               <margin top="2" left="6" bottom="2" right="6"/>
+              <name value=""/>
+              <text value="juanperez"/>
             </properties>
           </component>
         </children>
