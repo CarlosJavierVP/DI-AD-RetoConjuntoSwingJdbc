@@ -180,13 +180,13 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="60b1a" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="60b1a" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="East"/>
             <properties/>
             <border type="none"/>
             <children>
               <component id="69e8c" class="javax.swing.JButton" binding="btnEliminar">
-                <constraints border-constraint="Center"/>
+                <constraints/>
                 <properties>
                   <label value="Eliminar"/>
                   <text value="Eliminar"/>

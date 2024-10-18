@@ -19,7 +19,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="5a394" class="javax.swing.JLabel" binding="title">
+          <component id="5a394" class="javax.swing.JLabel">
             <constraints border-constraint="Center"/>
             <properties>
               <font size="36"/>
@@ -46,7 +46,7 @@
           </component>
         </children>
       </scrollpane>
-      <grid id="b1671" binding="botones" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="b1671" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>

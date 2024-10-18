@@ -6,9 +6,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase JdbcUtils para establecer conexión con la base de datos
+ * @author Carlos Javier
+ * */
 public class JdbcUtils {
+    /**Atributo estático de Connection*/
     private static Connection con;
 
+    /**Bloque estático con los atributos necesarios para establecer y setear la conexión*/
     static{
         String url="jdbc:mysql://localhost:3306/peliculas";
         String user="root";
@@ -21,6 +27,9 @@ public class JdbcUtils {
         }
     }
 
+    /**
+     * Método estático getCon() para llamar a la conexión
+     * */
     public static Connection getCon() {
         return con;
     }
