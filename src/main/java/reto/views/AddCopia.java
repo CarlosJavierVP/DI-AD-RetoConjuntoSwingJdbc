@@ -35,6 +35,8 @@ public class AddCopia extends JDialog {
     private PeliculaDAO pDao = new PeliculaDAO(JdbcUtils.getCon());
     /**Atributo CopiaDAO para establecer la conexión JDBC*/
     private CopiaDAO cDao = new CopiaDAO(JdbcUtils.getCon());
+    /**Atributo PeliculaDAO para establecer la conexión JDBC*/
+    PeliculaDAO peliDao = new PeliculaDAO(JdbcUtils.getCon());
 
     /**
      * Método AddCopia para mostrar la ventana de añadir copia y fijar sus parámetros
@@ -47,8 +49,6 @@ public class AddCopia extends JDialog {
         setSize(300,250);
         setResizable(false);
         //pack();
-
-        PeliculaDAO peliDao = new PeliculaDAO(JdbcUtils.getCon());
 
         //añadir al comboBox de soporte las opciones
         setearOpcionesSoporte();

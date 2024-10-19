@@ -76,7 +76,6 @@ public class Loggin extends JFrame {
             Session.userSelected = u;
 
             Principal miLista = new Principal();
-
             miLista.setVisible(true);
             dispose();
 
