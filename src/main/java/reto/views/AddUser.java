@@ -83,7 +83,6 @@ public class AddUser extends JDialog {
                 dispose();
                 var principal = new Principal();
                 principal.setVisible(true);
-
             }else {
                 JOptionPane.showMessageDialog(this,"La contraseña no coincide");
             }

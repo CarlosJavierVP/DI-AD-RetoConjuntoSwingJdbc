@@ -54,6 +54,7 @@ public class Loggin extends JFrame {
             paramsnotnull();
             AddUser nuevoUsuario = new AddUser();
             nuevoUsuario.setVisible(true);
+            dispose();
         });
 
     }
