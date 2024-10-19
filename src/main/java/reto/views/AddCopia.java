@@ -114,8 +114,8 @@ public class AddCopia extends JDialog {
             //guardar la copia en la base de datos
             cDao.save(nuevaCopia);
 
-            var principal = new Principal();
             dispose();
+            var principal = new Principal();
             principal.setVisible(true);
 
         } else{
@@ -142,8 +142,8 @@ public class AddCopia extends JDialog {
      * Método cancelar para deshacer la copia que se está creando
      * */
     private void cancelar() {
+        dispose();
         var principal = new Principal();
         principal.setVisible(true);
-        dispose();
     }
 }

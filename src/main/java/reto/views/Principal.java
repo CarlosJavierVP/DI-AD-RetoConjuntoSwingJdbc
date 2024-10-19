@@ -94,10 +94,10 @@ public class Principal extends JFrame{
      * Método volverLoggin llamada al método que vuelve a la ventana anterior
      * */
     private void volverLoggin() {
+        paramsnotnull();
+        dispose();
         Loggin ventanaAntes = new Loggin();
         ventanaAntes.setVisible(true);
-        dispose();
-        paramsnotnull();
     }
 
     /**

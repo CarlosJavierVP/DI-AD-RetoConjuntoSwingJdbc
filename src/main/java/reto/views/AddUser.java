@@ -2,27 +2,38 @@ package reto.views;
 
 import reto.JdbcUtils;
 import reto.dao.UsuarioDAO;
-import reto.models.Copia;
 import reto.models.Usuario;
 import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static reto.Session.copyDTO;
 import static reto.Session.userSelected;
 
+/**
+ * Clase AddUser para la ventana de registrar un usuario nuevo
+ * @author Carlos Javier
+ * */
 public class AddUser extends JDialog {
+    /**Atributo JPanel de la ventana de registrar usuario*/
     private JPanel panelNewUser;
+    /**Atributo JTextField campo para ingresar nombre de nuevo usuario*/
     private JTextField newUser;
+    /**Atributo JPasswordField campo para ingresar contraseña de nuevo usuario*/
     private JPasswordField newPass;
+    /**Atributo JPasswordField campo para validar la contraseña de nuevo usuario*/
     private JPasswordField newPass2;
+    /**Atributo JButton para guardar el nuevo usuario y logear con la cuenta*/
     private JButton btnGuardar;
+    /**Atributo JButton para cancelar el registro de nuevo usuario*/
     private JButton btnCancelar;
 
+    /**Atributo UsuarioDAO para establecer la conexión con JDBC*/
     UsuarioDAO userDao = new UsuarioDAO(JdbcUtils.getCon());
 
+    /**
+     * Método AddUser() para mostrar la ventana de registrar usuario y sus funcionalidades
+     * */
     public AddUser(){
         setContentPane(panelNewUser);
         setModal(true);
@@ -38,14 +49,22 @@ public class AddUser extends JDialog {
         });
 
         btnCancelar.addActionListener((e)->{
-            dispose();
-            var loggin = new Loggin();
-            loggin.setVisible(true);
-
+            cancelar();
         });
-
     }
 
+    /**
+     * Método para cancelar el registro de nuevo usuario
+     * */
+    private void cancelar() {
+        dispose();
+        var loggin = new Loggin();
+        loggin.setVisible(true);
+    }
+
+    /**
+     * Método para validar un nuevo usuario y registrarlo
+     * */
     private void validarNuevoUsuario() {
         Usuario nuevoUsuario = userDao.validateNewUser(newUser.getText());
 
@@ -72,7 +91,6 @@ public class AddUser extends JDialog {
             System.out.println(nuevoUsuario);
             JOptionPane.showMessageDialog(this,"Ese nombre de usuario no está disponible");
         }
-
 
     }
 
