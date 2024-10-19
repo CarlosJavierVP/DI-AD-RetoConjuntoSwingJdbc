@@ -85,7 +85,6 @@ public class AddCopia extends JDialog {
     private void setearOpcionesSoporte() {
         var opcionesSoporte = new DefaultComboBoxModel<String>();
         soporteCombo.setModel(opcionesSoporte);
-        opcionesSoporte.addElement("");
         opcionesSoporte.addElement("DVD");
         opcionesSoporte.addElement("Blu-ray");
     }
@@ -98,12 +97,14 @@ public class AddCopia extends JDialog {
         String titulo = (String) peliculaCombo.getSelectedItem();
         peliDTO = pDao.findByTitle(titulo);
 
-        if ( peliDTO != null && soporteCombo != null && estadoPeli()) {
+        if ( peliDTO != null && soportePeli() && estadoPeli()) {
+            soportePeli();
             estadoPeli();
+
             //Setear la copia nueva
             Copia nuevaCopia = new Copia();
             nuevaCopia.setEstado(copySelected.getEstado());
-            nuevaCopia.setSoporte((String) soporteCombo.getSelectedItem());
+            nuevaCopia.setSoporte(copySelected.getSoporte());
             nuevaCopia.setId_pelicula(peliDTO.getId());
             nuevaCopia.setId_usuario(userSelected.getId());
             nuevaCopia.setPeli(peliDTO);
@@ -121,6 +122,17 @@ public class AddCopia extends JDialog {
         } else{
             warning.setText("Introduce todos los valores");
         }
+    }
+    /**
+     * Método soportePeli para establecer el formato de la Película con ComboBox
+     * */
+    private boolean soportePeli(){
+        boolean flag = false;
+        if (soporteCombo.getSelectedItem() != null){
+            copySelected.setSoporte((String)soporteCombo.getSelectedItem());
+            flag = true;
+        }
+        return flag;
     }
 
     /**

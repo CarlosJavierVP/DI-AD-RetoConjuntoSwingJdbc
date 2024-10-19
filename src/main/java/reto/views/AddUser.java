@@ -88,11 +88,7 @@ public class AddUser extends JDialog {
                 JOptionPane.showMessageDialog(this,"La contraseña no coincide");
             }
         }else {
-            System.out.println(nuevoUsuario);
             JOptionPane.showMessageDialog(this,"Ese nombre de usuario no está disponible");
         }
-
     }
-
-
 }
