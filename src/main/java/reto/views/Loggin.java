@@ -9,7 +9,7 @@ import reto.models.Usuario;
 import javax.swing.*;
 import java.util.List;
 
-import static reto.Session.paramsnotnull;
+import static reto.Session.paramsToNull;
 
 /**
  * Clase Loggin representa la ventana de conexión de un usuario a su cuenta
@@ -46,12 +46,12 @@ public class Loggin extends JFrame {
         });
 
         cerrarAppButton.addActionListener((e) -> {
-                paramsnotnull();
+                paramsToNull();
                 dispose();
         });
 
         addUser.addActionListener((e)->{
-            paramsnotnull();
+            paramsToNull();
             AddUser nuevoUsuario = new AddUser();
             nuevoUsuario.setVisible(true);
             dispose();

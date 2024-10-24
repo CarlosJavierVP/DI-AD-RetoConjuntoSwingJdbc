@@ -23,7 +23,7 @@ public class Session {
     /**
      * Método estático para setear todos los atributos a nulo
      * */
-    public static void paramsnotnull(){
+    public static void paramsToNull(){
         userSelected = null;
         copySelected = null;
         copyDTO = null;
